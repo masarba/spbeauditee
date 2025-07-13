@@ -45,7 +45,7 @@ const signout = async () => {
     console.log("Logout token:", token);  // Log token untuk debugging
 
     // Call the API to log out
-    const response = await axios.post("${apiBaseUrl}/api/auth/logout", {}, {
+    const response = await axios.post("https://spbebackend-production.up.railway.app/api/auth/logout", {}, {
       headers: {
         Authorization: `Bearer ${token}`,  // Pastikan token dikirim di header Authorization
       }

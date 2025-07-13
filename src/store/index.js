@@ -77,7 +77,7 @@ export default createStore({
   actions: {
     async login({ commit }, { username, email, password }) {
       try {
-          const response = await axios.post("${apiBaseUrl}/api/auth/login", { username, email, password });
+          const response = await axios.post("https://spbebackend-production.up.railway.app/api/auth/login", { username, email, password });
   
           // Check if the response has the required fields
           if (response.data.access_token) {
@@ -108,7 +108,7 @@ export default createStore({
       // Implement password change logic here
       // For example, you can make an API call to change the password
       try {
-        const response = await axios.post("${apiBaseUrl}/api/auth/change-password", {
+        const response = await axios.post("https://spbebackend-production.up.railway.app/api/auth/change-password", {
           password: newPassword,
         });
         commit("setPasswordChanged", true); // Update the state
@@ -122,7 +122,7 @@ export default createStore({
     async verify2FA({ commit, state }, { otp }) {
       try {
         const google2fa_secret = state.google2fa_secret;
-        const response = await axios.post("${apiBaseUrl}/api/auth/verify-2fa", {
+        const response = await axios.post("https://spbebackend-production.up.railway.app/api/auth/verify-2fa", {
           otp,
           google2fa_secret,
         });

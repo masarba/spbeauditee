@@ -91,7 +91,7 @@ const setupAxiosInterceptors = () => {
 
             try {
                 const token = localStorage.getItem('access_token');
-                const response = await axios.post('${apiBaseUrl}/api/auth/refresh', {}, {
+                const response = await axios.post('https://spbebackend-production.up.railway.app/api/auth/refresh', {}, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
@@ -154,7 +154,7 @@ const handleSignIn = async () => {
             return;
         }
 
-        const response = await axios.post('${apiBaseUrl}/api/auth/login', {
+        const response = await axios.post('https://spbebackend-production.up.railway.app/api/auth/login', {
             username: username.value,
             email: email.value,
             password: password.value

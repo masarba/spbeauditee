@@ -20,7 +20,7 @@ const signOut = async () => {
     isLoading.value = true; // Mengatur status loading jadi true
     
     // Panggil endpoint logout
-    await axios.post("${apiBaseUrl}/api/auth/logout", {}, {
+    await axios.post("https://spbebackend-production.up.railway.app/api/auth/logout", {}, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }

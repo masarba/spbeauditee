@@ -54,7 +54,7 @@ export default {
         console.log("Payload being sent:", payload); // Log the payload
 
         // Use response to handle success
-        const response = await axios.post('${apiBaseUrl}/api/auth/verify-2fa', payload, {
+        const response = await axios.post('https://spbebackend-production.up.railway.app/api/auth/verify-2fa', payload, {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },

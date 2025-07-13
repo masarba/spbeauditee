@@ -373,7 +373,7 @@ export default {
 
       try {
     const response = await axios.get(
-      `${apiBaseUrl}/api/auth/questions/${this.auditeeId}`,
+      `https://spbebackend-production.up.railway.app/api/auth/questions/${this.auditeeId}`,
       {
         headers: {
               'Authorization': `Bearer ${token}`,
@@ -432,7 +432,7 @@ export default {
         if (!token) return;
 
     const additionalResponse = await axios.get(
-      `${apiBaseUrl}/api/auth/audit-requests/with-additional-questions`,
+      `https://spbebackend-production.up.railway.app/api/auth/audit-requests/with-additional-questions`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -515,13 +515,13 @@ export default {
 
         // Log untuk debugging
         console.log('Detail pengiriman:');
-        console.log('URL:', `${apiBaseUrl}/api/auth/save-audit-results/${this.auditeeId}`);
+        console.log('URL:', `https://spbebackend-production.up.railway.app/api/auth/save-audit-results/${this.auditeeId}`);
         console.log('Token:', token ? 'Ada' : 'Tidak ada');
         console.log('Auditee ID:', this.auditeeId);
         console.log('Data yang akan dikirim:', formattedData);
 
     const response = await axios.post(
-      `${apiBaseUrl}/api/auth/save-audit-results/${this.auditeeId}`,
+      `https://spbebackend-production.up.railway.app/api/auth/save-audit-results/${this.auditeeId}`,
           formattedData,
       {
         headers: {
@@ -620,7 +620,7 @@ export default {
 
       try {
         await axios.post(
-          `${apiBaseUrl}/api/auth/save-additional-answers/${this.auditeeId}`,
+          `https://spbebackend-production.up.railway.app/api/auth/save-additional-answers/${this.auditeeId}`,
           requestData,
           {
             headers: {
@@ -837,7 +837,7 @@ export default {
     formData.append("pdf", pdfBlob, `Hasil_Audit_${this.auditeeId}.pdf`);
     formData.append("id", this.auditeeId);
 
-    await axios.post("${apiBaseUrl}/api/auth/audit-results/send-pdf", formData, {
+    await axios.post("https://spbebackend-production.up.railway.app/api/auth/audit-results/send-pdf", formData, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "multipart/form-data"
@@ -1175,7 +1175,7 @@ wrapText(text, font, fontSize, maxWidth) {
       
       try {
         const response = await axios.post(
-          `${apiBaseUrl}/api/auth/save-audit-results/${this.auditeeId}`,
+          `https://spbebackend-production.up.railway.app/api/auth/save-audit-results/${this.auditeeId}`,
           {
             id: this.auditeeId,
             question_groups: this.questionGroups.map(group => ({
@@ -1250,7 +1250,7 @@ wrapText(text, font, fontSize, maxWidth) {
 
       try {
         const response = await axios.post(
-          `${apiBaseUrl}/api/draft-answers/category/${this.auditeeId}`,
+          `https://spbebackend-production.up.railway.app/api/draft-answers/category/${this.auditeeId}`,
           { 
             category: category,
             draft_answer: draftAnswer 

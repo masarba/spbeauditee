@@ -230,7 +230,7 @@ export default {
       try {
         // Ambil data user yang sedang login
         const userResponse = await axios.get(
-          "${apiBaseUrl}/api/user",
+          "https://spbebackend-production.up.railway.app/api/user",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -242,7 +242,7 @@ export default {
 
         // Ambil audit yang disetujui untuk user yang login
         const response = await axios.get(
-          `${apiBaseUrl}/api/auth/audit-requests/approved/${currentUserId}`,
+          `https://spbebackend-production.up.railway.app/api/auth/audit-requests/approved/${currentUserId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -275,7 +275,7 @@ export default {
       try {
         // Ambil data user yang sedang login
         const userResponse = await axios.get(
-          "${apiBaseUrl}/api/user",
+          "https://spbebackend-production.up.railway.app/api/user",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -287,7 +287,7 @@ export default {
 
         // Ambil audit dengan pertanyaan tambahan yang hanya sesuai dengan user yang login
         const response = await axios.get(
-          "${apiBaseUrl}/api/auth/audit-requests/with-additional-questions",
+          "https://spbebackend-production.up.railway.app/api/auth/audit-requests/with-additional-questions",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -340,7 +340,7 @@ export default {
 
       try {
         const response = await axios.post(
-          "${apiBaseUrl}/api/auth/audit-requests",
+          "https://spbebackend-production.up.railway.app/api/auth/audit-requests",
           formData,
           {
             headers: {
