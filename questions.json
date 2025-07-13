@@ -1,0 +1,377 @@
+[
+  {
+    "#VALUE!": "MATRIKS JUMLAH HARI PELAKSANAAN AUDIT KEAMANAN SPBE"
+  },
+  {
+    "#VALUE!": "Kompleksitas Objek Audit",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Kompleksitas Teknologi Objek Audit Keamanan SPBE",
+    "__EMPTY": "Sebaran Lokasi Objek Audit Keamanan SPBE",
+    "__EMPTY_1": "Jumlah Hari \r\n(paling sedikit)"
+  },
+  {
+    "#VALUE!": "Sederhana",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Sederhana",
+    "__EMPTY": "Terpusat",
+    "__EMPTY_1": 2
+  },
+  {
+    "__EMPTY": "Tersebar",
+    "__EMPTY_1": 3
+  },
+  {
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Sedang",
+    "__EMPTY": "Terpusat",
+    "__EMPTY_1": 3
+  },
+  {
+    "__EMPTY": "Tersebar",
+    "__EMPTY_1": 4
+  },
+  {
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Kompleks",
+    "__EMPTY": "Terpusat",
+    "__EMPTY_1": 4
+  },
+  {
+    "__EMPTY": "Tersebar",
+    "__EMPTY_1": 5
+  },
+  {
+    "#VALUE!": "Sedang",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Sederhana",
+    "__EMPTY": "Terpusat",
+    "__EMPTY_1": 5
+  },
+  {
+    "__EMPTY": "Tersebar",
+    "__EMPTY_1": 6
+  },
+  {
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Sedang",
+    "__EMPTY": "Terpusat",
+    "__EMPTY_1": 6
+  },
+  {
+    "__EMPTY": "Tersebar",
+    "__EMPTY_1": 7
+  },
+  {
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Kompleks",
+    "__EMPTY": "Terpusat",
+    "__EMPTY_1": 7
+  },
+  {
+    "__EMPTY": "Tersebar",
+    "__EMPTY_1": 8
+  },
+  {
+    "#VALUE!": "Kompleks",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Sederhana",
+    "__EMPTY": "Terpusat",
+    "__EMPTY_1": 8
+  },
+  {
+    "__EMPTY": "Tersebar",
+    "__EMPTY_1": 9
+  },
+  {
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Sedang",
+    "__EMPTY": "Terpusat",
+    "__EMPTY_1": 9
+  },
+  {
+    "__EMPTY": "Tersebar",
+    "__EMPTY_1": 10
+  },
+  {
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Kompleks",
+    "__EMPTY": "Terpusat",
+    "__EMPTY_1": 10
+  },
+  {
+    "__EMPTY": "Tersebar",
+    "__EMPTY_1": 10
+  },
+  {
+    "#VALUE!": "* untuk 1 tim auditor (paling sedikit dua orang) untuk satu prosedur pelaksanaan audit"
+  },
+  {
+    "#VALUE!": "MATRIKS KOMPLEKSITAS OBJEK AUDIT KEAMANAN"
+  },
+  {
+    "#VALUE!": "Indikator",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Sederhana",
+    "__EMPTY": "Sedang",
+    "__EMPTY_1": "Kompleks"
+  },
+  {
+    "#VALUE!": "Aplikasi SPBE",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Aplikasi Khusus Instansi Pusat",
+    "__EMPTY": "Aplikasi Khusus Pemerintah Daerah",
+    "__EMPTY_1": "Aplikasi Umum SPBE Nasional"
+  },
+  {
+    "#VALUE!": "Pusat Data Nasional",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Instansi Pusat",
+    "__EMPTY": "Pemerintah Daerah",
+    "__EMPTY_1": "Nasional"
+  },
+  {
+    "#VALUE!": "Jaringan Intra",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Instansi Pusat",
+    "__EMPTY": "Pemerintah Daerah",
+    "__EMPTY_1": "Nasional"
+  },
+  {
+    "#VALUE!": "Sistem Penghubung Layanan",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Instansi Pusat",
+    "__EMPTY": "Pemerintah Daerah",
+    "__EMPTY_1": "Nasional"
+  },
+  {
+    "#VALUE!": "MATRIKS KOMPLEKSITAS TEKNOLOGI OBJEK AUDIT KEAMANAN"
+  },
+  {
+    "#VALUE!": "Indikator",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Sederhana",
+    "__EMPTY": "Sedang",
+    "__EMPTY_1": "Kompleks"
+  },
+  {
+    "#VALUE!": "UMUM"
+  },
+  {
+    "#VALUE!": "Jumlah Personil TI",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "< 5 orang ",
+    "__EMPTY": "6-10 orang",
+    "__EMPTY_1": "> 10 orang"
+  },
+  {
+    "#VALUE!": "Jumlah Pengguna",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "< 100 pengguna",
+    "__EMPTY": "100-1000 pengguna",
+    "__EMPTY_1": "> 1000 pengguna"
+  },
+  {
+    "#VALUE!": "Jenis Dampak Kegagalan",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Operasional saja",
+    "__EMPTY": "Operasional dan Finansial",
+    "__EMPTY_1": "Operasional, Finansial, dan  Legal"
+  },
+  {
+    "#VALUE!": "APLIKASI"
+  },
+  {
+    "#VALUE!": "Sebaran peladen ",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Terpusat",
+    "__EMPTY": "Terdistribusi Dalam Negeri ",
+    "__EMPTY_1": "Terdistribusi Dalam & Luar Negeri"
+  },
+  {
+    "#VALUE!": "Platform Teknologi",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "1 jenis",
+    "__EMPTY": "2-3 jenis",
+    "__EMPTY_1": "> 3 jenis"
+  },
+  {
+    "#VALUE!": "Waktu Pengembangan",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "< 3 bulan",
+    "__EMPTY": "3-12 bulan ",
+    "__EMPTY_1": "> 12 bulan"
+  },
+  {
+    "#VALUE!": "Usia Sistem ",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "< 1 tahun",
+    "__EMPTY": "1–3 tahun",
+    "__EMPTY_1": "> 3 tahun"
+  },
+  {
+    "#VALUE!": "Transaksi per hari",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "< 5000 ",
+    "__EMPTY": "5000 s.d. 50.000 ",
+    "__EMPTY_1": "> 50.000 "
+  },
+  {
+    "#VALUE!": "Pola Pemrosesan",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Batch",
+    "__EMPTY": "Realtime",
+    "__EMPTY_1": "Hybrid"
+  },
+  {
+    "#VALUE!": "Cakupan Proses Bisnis",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "< 30 %",
+    "__EMPTY": "30-60% ",
+    "__EMPTY_1": "> 60% "
+  },
+  {
+    "#VALUE!": "INFRASTRUKTUR - PUSAT DATA NASIONAL"
+  },
+  {
+    "#VALUE!": "Pengelolaan ",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Alih Daya, Sewa",
+    "__EMPTY": "Mandiri",
+    "__EMPTY_1": "Campuran "
+  },
+  {
+    "#VALUE!": "Strata SNI",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Strata 1-2",
+    "__EMPTY": "Strata 3",
+    "__EMPTY_1": "Strata 4"
+  },
+  {
+    "#VALUE!": "Sertifikasi",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Belum Ada",
+    "__EMPTY": "SNI 27001",
+    "__EMPTY_1": "SNI 27001 dan Standar Lain"
+  },
+  {
+    "#VALUE!": "INFRASTRUKTUR - JARINGAN INTRA"
+  },
+  {
+    "#VALUE!": "Pengelolaan ",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Alih Daya, Sewa",
+    "__EMPTY": "Mandiri",
+    "__EMPTY_1": "Campuran "
+  },
+  {
+    "#VALUE!": "Cakupan Jaringan ",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Local Area Network, \r\nCampus Area Network",
+    "__EMPTY": "Metropolitan Area Network,\r\nVirtual Private Network",
+    "__EMPTY_1": "Wide Area Network,\r\nNasional"
+  },
+  {
+    "#VALUE!": "Media Jaringan",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Kabel",
+    "__EMPTY": "Nirkabel",
+    "__EMPTY_1": "Kabel & Nirkabel"
+  },
+  {
+    "#VALUE!": "INFRASTRUKTUR - SISTEM PENGHUBUNG LAYANAN"
+  },
+  {
+    "#VALUE!": "Cakupan Sistem",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Intra Instansi Pusat atau\r\nIntra Pemerintah Daerah",
+    "__EMPTY": "Antar Instansi Pusat atau \r\nAntar Pemerintah Daerah",
+    "__EMPTY_1": "Nasional"
+  },
+  {
+    "#VALUE!": "Sifat Sistem ",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Tertutup",
+    "__EMPTY": "Semi Terbuka",
+    "__EMPTY_1": "Terbuka"
+  },
+  {
+    "#VALUE!": "Konten Sistem ",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Data",
+    "__EMPTY": "Aplikasi",
+    "__EMPTY_1": "Layanan"
+  },
+  {
+    "#VALUE!": "Sifat Informasi",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Terbuka",
+    "__EMPTY": "Terbatas",
+    "__EMPTY_1": "Tertutup"
+  },
+  {
+    "#VALUE!": "HASIL PELAKSANAAN AUDIT KEAMANAN INFORMASI SPBE"
+  },
+  {
+    "#VALUE!": "Berikut ini adalah matriks  untuk mengambil Kesimpulan dalam Laporan Audit Keamanan SPBE yang digunakan oleh Auditor Keamanan SPBE dalam pertimbangannya. Adapun hasil penilaian atas kontrol keamanan SPBE ditentukan dari hasil evaluasi terhadap Desain kontrol, lalu dilanjutkan dengan evaluasi terhadap implementasi kontrol dan diyakinkan dengan melakukan uji efektifitas secara terinci atas kontrol keamanan tersebut. "
+  },
+  {
+    "#VALUE!": "Hasil Evaluasi \r\nDesain Kontrol",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Hasil Evaluasi \r\nImplementasi kontrol",
+    "__EMPTY": "Hasil Evaluasi \r\nEfektivitas kontrol",
+    "__EMPTY_1": "Kesimpulan Audit"
+  },
+  {
+    "#VALUE!": "Memadai",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Sesuai Dengan Desain Kontrol",
+    "__EMPTY": "Efektif",
+    "__EMPTY_1": "Memadai"
+  },
+  {
+    "__EMPTY": "Perlu Peningkatan",
+    "__EMPTY_1": "Memadai"
+  },
+  {
+    "__EMPTY": "Belum Efektif",
+    "__EMPTY_1": "Perlu Peningkatan"
+  },
+  {
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Tidak Sesuai Dengan Desain Kontrol",
+    "__EMPTY": "Efektif",
+    "__EMPTY_1": "Perlu Peningkatan"
+  },
+  {
+    "__EMPTY": "Perlu Peningkatan",
+    "__EMPTY_1": "Tidak Memadai"
+  },
+  {
+    "__EMPTY": "Belum Efektif",
+    "__EMPTY_1": "Tidak Memadai"
+  },
+  {
+    "#VALUE!": "Perlu Peningkatan",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Sesuai Dengan Desain Kontrol",
+    "__EMPTY": "Efektif",
+    "__EMPTY_1": "Memadai"
+  },
+  {
+    "__EMPTY": "Perlu Peningkatan",
+    "__EMPTY_1": "Perlu Peningkatan"
+  },
+  {
+    "__EMPTY": "Belum Efektif",
+    "__EMPTY_1": "Tidak Memadai"
+  },
+  {
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Tidak Sesuai Dengan Desain Kontrol",
+    "__EMPTY": "Efektif",
+    "__EMPTY_1": "Tidak Memadai"
+  },
+  {
+    "__EMPTY": "Perlu Peningkatan",
+    "__EMPTY_1": "Tidak Memadai"
+  },
+  {
+    "__EMPTY": "Belum Efektif",
+    "__EMPTY_1": "Tidak Memadai"
+  },
+  {
+    "#VALUE!": "Tidak Memadai",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "---",
+    "__EMPTY": "Efektif",
+    "__EMPTY_1": "Tidak Memadai"
+  },
+  {
+    "__EMPTY": "Perlu Peningkatan",
+    "__EMPTY_1": "Tidak Memadai"
+  },
+  {
+    "__EMPTY": "Belum Efektif",
+    "__EMPTY_1": "Tidak Memadai"
+  },
+  {
+    "#VALUE!": "PROSEDUR EVALUASI EFEKTIVITAS KONTROL"
+  },
+  {
+    "#VALUE!": "Prosedur penilaian audit ini dirancang untuk memastikan bahwa audit dilakukan secara sistematis dan komprehensif, dengan mengintegrasikan berbagai teknik penilaian untuk mendapatkan gambaran yang akurat dan obyektif terkait dengan kepatuhan, efektivitas, dan efisiensi proses atau sistem yang diaudit."
+  },
+  {
+    "#VALUE!": "Wawancara",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Wawancara dalam prosedur penilaian audit adalah proses interaksi langsung antara auditor dengan pihak terkait (seperti manajer, staf, atau individu lain yang relevan) untuk mendapatkan informasi, klarifikasi, atau pemahaman lebih dalam terkait dengan proses, kebijakan, atau praktik yang sedang diaudit. Wawancara ini bertujuan untuk memverifikasi informasi, mengidentifikasi kelemahan atau potensi risiko, dan mendapatkan sudut pandang dari berbagai pihak yang terlibat dalam proses audit."
+  },
+  {
+    "#VALUE!": "Observasi",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Observasi dalam konteks audit adalah kegiatan pengamatan langsung oleh auditor terhadap aktivitas, praktik, atau kondisi yang sedang diaudit. Observasi ini dilakukan untuk memverifikasi kepatuhan terhadap standar atau kebijakan yang berlaku, mengevaluasi efektivitas implementasi prosedur, serta mengidentifikasi potensi penyimpangan atau area untuk perbaikan."
+  },
+  {
+    "#VALUE!": "Standar/Kebijakan",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Standar atau kebijakan dalam prosedur penilaian audit mengacu pada panduan atau pedoman yang menjadi acuan utama dalam melakukan audit. Ini mencakup peraturan, pedoman, atau prinsip-prinsip yang harus dipatuhi atau diterapkan dalam proses audit untuk memastikan konsistensi, objektivitas, dan relevansi dari hasil audit.\r\n"
+  },
+  {
+    "#VALUE!": "Uji Teknis",
+    "FORM PERTANYAAN AUDIT KEAMANAN SPBE Versi 1.0": "Uji teknis dalam konteks audit adalah prosedur penilaian yang dilakukan untuk menguji keandalan, keefektifan, atau kepatuhan sistem, infrastruktur, atau proses tertentu terhadap standar atau spesifikasi yang berlaku. Uji teknis ini dapat meliputi pengujian fisik, pengujian fungsi atau kinerja sistem, pengujian keamanan, atau pengujian lain yang relevan sesuai dengan ruang lingkup audit yang sedang dilakukan."
+  }
+]
