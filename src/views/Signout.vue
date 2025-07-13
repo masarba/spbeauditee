@@ -12,7 +12,6 @@ const body = document.getElementsByTagName("body")[0];
 const store = useStore();
 const router = useRouter();
 const $q = useQuasar(); // Untuk menggunakan notifikasi Quasar
-const apiBaseUrl = import.meta.env.VITE_API_URL;
 const isLoading = ref(false); // Untuk mengelola status loading
 
 const signOut = async () => {

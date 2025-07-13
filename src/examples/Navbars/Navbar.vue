@@ -9,7 +9,6 @@ const showMenu = ref(false);
 const store = useStore();
 const router = useRouter();  // Define router for navigation
 const isRTL = computed(() => store.state.isRTL);
-const apiBaseUrl = import.meta.env.VITE_API_URL;
 const route = useRoute();
 const currentRouteName = computed(() => {
   return route.name;

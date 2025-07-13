@@ -33,7 +33,6 @@ import { useStore } from "vuex";
 import axios from "axios";
 
 const store = useStore();
-const apiBaseUrl = import.meta.env.VITE_API_URL;
 const newPassword = ref("");
 const confirmPassword = ref("");
 const isLoading = ref(false);

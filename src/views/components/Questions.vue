@@ -216,7 +216,7 @@ import {
 import html2canvas from "html2canvas";
 
 import { PDFDocument, rgb } from 'pdf-lib';
-const apiBaseUrl = import.meta.env.VITE_API_URL;
+
 // Registrasi tipe chart dan semua komponennya
 Chart.register(
   CategoryScale,

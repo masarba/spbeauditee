@@ -11,7 +11,6 @@ import logo from "@/assets/img/logopoltek.png";
 
 const body = document.body; // Shorter and cleaner way to access the body
 const store = useStore();
-const apiBaseUrl = import.meta.env.VITE_API_URL;
 const $q = useQuasar();
 
 const username = ref("");
