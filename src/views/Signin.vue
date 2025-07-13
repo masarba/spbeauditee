@@ -137,7 +137,6 @@ const handleSignIn = async () => {
         
         // Validasi input yang lebih lengkap
         const errors = [];
-        if (!username.value) errors.push('Username harus diisi');
         if (!email.value) errors.push('Email harus diisi');
         if (!password.value) errors.push('Password harus diisi');
         
@@ -153,11 +152,18 @@ const handleSignIn = async () => {
             return;
         }
 
-        const response = await axios.post('https://spbebackend-production.up.railway.app/api/auth/login', {
-            username: username.value,
+        // Prepare login data - use email as primary login field
+        const loginData = {
             email: email.value,
             password: password.value
-        });
+        };
+
+        // If username is provided, include it in the request
+        if (username.value) {
+            loginData.username = username.value;
+        }
+
+        const response = await axios.post('https://spbebackend-production.up.railway.app/api/auth/login', loginData);
 
         const { 
             access_token, 
@@ -283,7 +289,7 @@ onBeforeUnmount(() => {
                 <div class="pb-0 card-header text-center">
                   <img :src="logo" alt="Logo Politeknik" class="mb-3" style="max-height: 80px; width: auto;" />
                   <h4 class="font-weight-bolder">SPBE-SCAN</h4>
-                  <p class="mb-0">Masukkan username, email dan password untuk login</p>
+                  <p class="mb-0">Masukkan email dan password untuk login</p>
                 </div>
                 <div class="card-body">
                   <form @submit.prevent="handleSignIn" class="needs-validation">
@@ -292,15 +298,10 @@ onBeforeUnmount(() => {
                         v-model="username"
                         id="username"
                         type="text"
-                        placeholder="Username"
+                        placeholder="Username (opsional)"
                         name="username"
                         size="lg"
-                        required
-                        :class="{ 'is-invalid': !username && isLoading }"
                       />
-                      <div class="invalid-feedback" v-if="!username && isLoading">
-                        Username harus diisi
-                      </div>
                     </div>
                     <div class="mb-3">
                       <ArgonInput
