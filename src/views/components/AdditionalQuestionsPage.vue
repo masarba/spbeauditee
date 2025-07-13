@@ -219,7 +219,7 @@ export default {
       try {
         // Fetch audit data with additional questions first
         const questionsResponse = await axios.get(
-          `http://127.0.0.1:8000/api/auth/audit-requests/with-additional-questions`,
+          `${apiBaseUrl}/api/auth/audit-requests/with-additional-questions`,
           {
             headers: {
               'Authorization': `Bearer ${token}`
@@ -274,7 +274,7 @@ export default {
           // Try to get audit by direct ID call as fallback
           try {
             const directResponse = await axios.get(
-              `http://127.0.0.1:8000/api/auth/audit-requests/${this.auditId}`,
+              `${apiBaseUrl}/api/auth/audit-requests/${this.auditId}`,
               {
                 headers: {
                   'Authorization': `Bearer ${token}`
@@ -370,7 +370,7 @@ export default {
       
       try {
         const response = await axios.get(
-          `http://127.0.0.1:8000/api/auth/download-audit-file/${this.auditId}`,
+          `${apiBaseUrl}/api/auth/download-audit-file/${this.auditId}`,
           {
             headers: {
               'Authorization': `Bearer ${token}`
@@ -414,7 +414,7 @@ export default {
         // Coba endpoint audit-requests/answered
         try {
           const answeredResponse = await axios.get(
-            `http://127.0.0.1:8000/api/auth/audit-requests/answered`,
+            `${apiBaseUrl}/api/auth/audit-requests/answered`,
             {
               headers: {
                 'Authorization': `Bearer ${token}`
@@ -462,7 +462,7 @@ export default {
         // Coba endpoint audit-results/{id}
         try {
           const resultsResponse = await axios.get(
-            `http://127.0.0.1:8000/api/auth/audit-results/${this.auditId}`,
+            `${apiBaseUrl}/api/auth/audit-results/${this.auditId}`,
             {
               headers: {
                 'Authorization': `Bearer ${token}`,
@@ -486,7 +486,7 @@ export default {
         // Coba endpoint audit/{id}
         try {
           const auditResponse = await axios.get(
-            `http://127.0.0.1:8000/api/auth/audit/${this.auditId}`,
+            `${apiBaseUrl}/api/auth/audit/${this.auditId}`,
             {
               headers: {
                 'Authorization': `Bearer ${token}`
@@ -586,7 +586,7 @@ export default {
 
         // Submit answers to API
         const response = await axios.post(
-          `http://127.0.0.1:8000/api/auth/save-additional-answers/${this.auditId}`,
+          `${apiBaseUrl}/api/auth/save-additional-answers/${this.auditId}`,
           data,
           {
             headers: {
@@ -787,7 +787,7 @@ export default {
         this.isDownloading = true;
         
         const response = await axios.get(
-          `http://127.0.0.1:8000/api/auth/audits/${this.auditId}/download-result`,
+          `${apiBaseUrl}/api/auth/audits/${this.auditId}/download-result`,
           {
             headers: {
               'Authorization': `Bearer ${token}`

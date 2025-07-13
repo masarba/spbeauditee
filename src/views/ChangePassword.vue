@@ -56,7 +56,7 @@ const handleChangePassword = async () => {
       console.log("Current token:", store.state.token); // Debug token
 
       // Send change password request with password confirmation
-      await axios.post("http://127.0.0.1:8000/api/auth/change-password", {
+      await axios.post("${apiBaseUrl}/api/auth/change-password", {
           password: newPassword.value,
           password_confirmation: confirmPassword.value, // Include confirmation password
       }, {

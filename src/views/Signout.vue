@@ -20,7 +20,7 @@ const signOut = async () => {
     isLoading.value = true; // Mengatur status loading jadi true
     
     // Panggil endpoint logout
-    await axios.post("http://127.0.0.1:8000/api/auth/logout", {}, {
+    await axios.post("${apiBaseUrl}/api/auth/logout", {}, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
