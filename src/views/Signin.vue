@@ -126,6 +126,7 @@ const setupAxiosInterceptors = () => {
 const clearAuthData = () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('role');
+    localStorage.removeItem('email');
     localStorage.removeItem('auditee_id');
     delete axios.defaults.headers.common['Authorization'];
     store.commit('clearLogin');
@@ -138,9 +139,15 @@ const handleSignIn = async () => {
         
         // Validasi input yang lebih lengkap
         const errors = [];
-        if (!username.value) errors.push('Username harus diisi');
-        if (!email.value) errors.push('Email harus diisi');
-        if (!password.value) errors.push('Password harus diisi');
+        if (!username.value || username.value.trim() === '') errors.push('Username harus diisi');
+        if (!email.value || email.value.trim() === '') errors.push('Email harus diisi');
+        if (!password.value || password.value.trim() === '') errors.push('Password harus diisi');
+        
+        // Validasi format email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (email.value && !emailRegex.test(email.value)) {
+            errors.push('Format email tidak valid');
+        }
         
         if (errors.length > 0) {
             errors.forEach(error => {
@@ -175,6 +182,7 @@ const handleSignIn = async () => {
         // Simpan data ke localStorage
         localStorage.setItem('access_token', access_token);
         localStorage.setItem('role', role);
+        localStorage.setItem('email', email.value);
         if (auditee_id) {
             localStorage.setItem('auditee_id', auditee_id);
         }
