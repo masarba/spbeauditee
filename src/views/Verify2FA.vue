@@ -43,10 +43,12 @@ export default {
       try {
         // Log the values being sent for debugging
         console.log("OTP:", this.otp);
+        console.log("Email from localStorage:", localStorage.getItem('email'));
         console.log("Google 2FA Secret:", this.google2fa_secret);
 
         const payload = {
           otp: this.otp,
+          email: localStorage.getItem('email') || '', // Get email from localStorage
           google2fa_secret: this.google2fa_secret || '', // Use empty string if undefined
         };
 
@@ -81,8 +83,19 @@ export default {
       }
     },
     getErrorMessage(err) {
-      if (err.response && err.response.data && err.response.data.message) {
-        return err.response.data.message; // Show specific error message
+      if (err.response && err.response.data) {
+        // Handle validation errors
+        if (err.response.data.errors) {
+          const errorMessages = [];
+          Object.values(err.response.data.errors).forEach(errors => {
+            errors.forEach(error => errorMessages.push(error));
+          });
+          return errorMessages.join(', ');
+        }
+        // Handle general error message
+        if (err.response.data.message) {
+          return err.response.data.message;
+        }
       } else if (err.request) {
         return 'Network error. Please check your connection and try again.';
       } else {
