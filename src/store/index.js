@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import axios from "axios"; // Import axios
+const apiBaseUrl = import.meta.env.VITE_API_URL;
 
 export default createStore({
   state: {

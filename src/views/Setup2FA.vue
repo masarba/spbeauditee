@@ -40,6 +40,7 @@ const secret = ref('');
 const $q = useQuasar();
 const router = useRouter();
 const store = useStore();
+const apiBaseUrl = import.meta.env.VITE_API_URL;
 
 onMounted(async () => {
   try {
