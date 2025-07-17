@@ -130,10 +130,9 @@
         <h3 class="category-header">Detail per Kategori:</h3>
         <div class="category-list">
           <div v-for="cat in categoryScores" :key="cat.category" class="category-item">
-            <div class="category-name">{{ cat.category }}</div>
+            <div class="category-name">{{ cat.category }}: <strong>{{ cat.score }}%</strong></div>
             <div class="score-bar-container">
               <div class="score-bar" :style="{ width: cat.score + '%', backgroundColor: getScoreColor(cat.score) }"></div>
-              <div class="score-value">{{ cat.score }}%</div>
             </div>
             <div class="score-label">({{ cat.kesimpulan }})</div>
           </div>
@@ -447,6 +446,25 @@ export default {
       return '#F44336'; // Merah untuk skor rendah
     },
     
+    // Fungsi untuk menentukan kesimpulan berdasarkan score
+    getScoreConclusion(score) {
+      // Pastikan nilai logis: semakin tinggi score, semakin baik kesimpulannya
+      if (score >= 80) return "Memadai";
+      if (score >= 60) return "Cukup Memadai";
+      return "Perlu Peningkatan";
+    },
+    
+    // Fungsi untuk standardisasi semua kesimpulan
+    standardizeConclusions() {
+      // Standardize all conclusions based on score
+      this.categoryScores.forEach(item => {
+        item.kesimpulan = this.getScoreConclusion(item.score);
+      });
+      
+      // Also update the total conclusion if needed
+      this.kesimpulanTotal = this.getScoreConclusion(this.totalScore);
+    },
+    
     // Submit jawaban utama ke backend
     async submitAnswers() {
       try {
@@ -500,6 +518,9 @@ export default {
     this.kesimpulanTotal = response.data.kesimpulanTotal;
     this.categoryScores = response.data.categoryScores;
     this.recommendations = response.data.recommendations || [];
+          
+          // Standardize conclusions to be consistent
+          this.standardizeConclusions();
           
           // Tampilkan hasil
     this.showResults = true;
@@ -602,199 +623,10 @@ export default {
   this.isSending = true;
 
   try {
-    const { PDFDocument, rgb, StandardFonts } = await import("pdf-lib");
-    const chartCanvas = document.getElementById("scoreChart");
+    // Generate PDF using the improved method
+    const pdfBlob = await this.generateLocalPdf();
 
-    const pdfDoc = await PDFDocument.create();
-    const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
-    const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
-    const page = pdfDoc.addPage([595, 842]);
-    const { width, height } = page.getSize();
-
-    // Header hijau
-    page.drawRectangle({
-      x: 0,
-      y: height - 120,
-      width: width,
-      height: 120,
-      color: rgb(0.298, 0.686, 0.314) // #4CAF50
-    });
-
-    // Judul
-    page.drawText("Hasil Audit", {
-      x: 50,
-      y: height - 70,
-      size: 32,
-      font: helveticaBold,
-      color: rgb(1, 1, 1)
-    });
-
-    // Total skor kanan atas
-    const scoreText = `${this.totalScore}%`;
-    const scoreWidth = helveticaBold.widthOfTextAtSize(scoreText, 32);
-    page.drawText(scoreText, {
-      x: width - scoreWidth - 50,
-      y: height - 70,
-      size: 32,
-      font: helveticaBold,
-      color: rgb(1, 1, 1)
-    });
-
-    let yOffset = height - 160;
-
-    // Skor Kategori
-    page.drawText("Skor Kategori:", {
-      x: 50,
-      y: yOffset,
-      size: 14,
-      font: helveticaBold,
-      color: rgb(0, 0, 0)
-    });
-
-    yOffset -= 30;
-
-    for (let i = 0; i < this.categoryScores.length; i++) {
-      const item = this.categoryScores[i];
-      const label = `${item.category}: ${item.score}% (${item.kesimpulan})`;
-
-      page.drawText(label, {
-        x: 50,
-        y: yOffset,
-        size: 12,
-        font: helveticaFont,
-        color: rgb(0, 0, 0)
-      });
-
-      yOffset -= 18;
-
-      let barColor = rgb(0.2, 0.6, 0.2); // Hijau
-      if (item.score < 50) barColor = rgb(0.9, 0.2, 0.2); // Merah
-      else if (item.score < 75) barColor = rgb(1, 0.8, 0); // Kuning
-
-      // Progress bar
-      page.drawRectangle({
-        x: 50,
-        y: yOffset,
-        width: 400,
-        height: 8,
-        color: rgb(0.9, 0.9, 0.9)
-      });
-      page.drawRectangle({
-        x: 50,
-        y: yOffset,
-        width: (item.score / 100) * 400,
-        height: 8,
-        color: barColor
-      });
-
-      yOffset -= 25;
-    }
-
-    yOffset -= 10;
-
-    // Rekomendasi
-    page.drawText("Rekomendasi:", {
-      x: 50,
-      y: yOffset,
-      size: 14,
-      font: helveticaBold,
-      color: rgb(0, 0, 0)
-    });
-
-    yOffset -= 30;
-
-    for (let i = 0; i < this.recommendations.length; i++) {
-      const text = `${i + 1}. ${this.recommendations[i]}`;
-      const lines = this.wrapText(text, helveticaFont, 12, width - 100);
-
-      for (const line of lines) {
-        page.drawText(line, {
-          x: 50,
-          y: yOffset,
-          size: 12,
-          font: helveticaFont,
-          color: rgb(0, 0, 0)
-        });
-        yOffset -= 20;
-      }
-      yOffset -= 10;
-    }
-
-    yOffset -= 20;
-
-   
-
-    yOffset -= 30;
-
-    if (chartCanvas) {
-      const chartImage = await html2canvas(chartCanvas);
-      const chartDataUrl = chartImage.toDataURL("image/png");
-      const chartBytes = await fetch(chartDataUrl).then((res) => res.arrayBuffer());
-      const chartImageEmbed = await pdfDoc.embedPng(chartBytes);
-
-      const scaleFactor = (width - 100) / chartImageEmbed.width;
-      const scaledWidth = chartImageEmbed.width * scaleFactor;
-      const scaledHeight = chartImageEmbed.height * scaleFactor;
-
-      page.drawImage(chartImageEmbed, {
-        x: 50,
-        y: yOffset - scaledHeight,
-        width: scaledWidth,
-        height: scaledHeight
-      });
-
-      yOffset -= scaledHeight + 40;
-    }
-
-    // File Terlampir
-    if (Object.keys(this.uploadedFiles).length > 0) {
-      page.drawText("File Terlampir:", {
-        x: 50,
-        y: yOffset,
-        size: 14,
-        font: helveticaBold,
-        color: rgb(0, 0, 0)
-      });
-
-      yOffset -= 30;
-
-      let fileNumber = 1;
-      for (const [groupIndex, files] of Object.entries(this.uploadedFiles)) {
-        if (Array.isArray(files)) {
-          for (const file of files) {
-            if (file instanceof File) {
-              try {
-                const buffer = await file.arrayBuffer();
-                await pdfDoc.attach(buffer, file.name, {
-                  mimeType: file.type,
-                  description: `File pendukung kategori ${parseInt(groupIndex) + 1}`,
-                  creationDate: new Date(),
-                  modificationDate: new Date()
-                });
-
-                page.drawText(`${fileNumber}. ${file.name}`, {
-                  x: 50,
-                  y: yOffset,
-                  size: 12,
-                  font: helveticaFont,
-                  color: rgb(0, 0, 0)
-                });
-
-                yOffset -= 25;
-                fileNumber++;
-              } catch (err) {
-                console.error(`Gagal melampirkan ${file.name}:`, err);
-              }
-            }
-          }
-        }
-      }
-    }
-
-    // Kirim ke backend
-    const pdfBytes = await pdfDoc.save();
-    const pdfBlob = new Blob([pdfBytes], { type: "application/pdf" });
-
+    // Send to backend
     const token = localStorage.getItem("access_token");
     const formData = new FormData();
     formData.append("pdf", pdfBlob, `Hasil_Audit_${this.auditeeId}.pdf`);
@@ -814,7 +646,7 @@ export default {
   } finally {
     this.isSending = false;
   }
-}, 
+},
 
 
 
@@ -918,8 +750,13 @@ async generateLocalPdf() {
     const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
     const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
 
-    const page = pdfDoc.addPage([595, 842]); // Ukuran A4
-    const { height, width } = page.getSize();
+    // Create first page
+    let page = pdfDoc.addPage([595, 842]); // A4 size
+    const { width } = page.getSize();
+    let height = 842; // Standard A4 height
+    
+    // Track current Y position
+    let yOffset = height - 120;
 
     // Header hijau
     page.drawRectangle({
@@ -950,10 +787,8 @@ async generateLocalPdf() {
       color: rgb(1, 1, 1)
     });
 
-    let yOffset = height - 160;
-
-    // Skor Kategori
-    page.drawText("Skor Kategori:", {
+    // Kesimpulan Total
+    page.drawText(`Kesimpulan: ${this.kesimpulanTotal}`, {
       x: 50,
       y: yOffset,
       size: 14,
@@ -962,10 +797,36 @@ async generateLocalPdf() {
     });
     yOffset -= 30;
 
+    // Skor Kategori
+    page.drawText("Detail per Kategori:", {
+      x: 50,
+      y: yOffset,
+      size: 14,
+      font: helveticaBold,
+      color: rgb(0, 0, 0)
+    });
+    yOffset -= 30;
+
+    // Function to add a new page when needed
+    const checkAndAddNewPageIfNeeded = (neededSpace) => {
+      if (yOffset - neededSpace < 50) {
+        page = pdfDoc.addPage([595, 842]);
+        yOffset = height - 50; // Reset Y position with a small top margin
+        return true;
+      }
+      return false;
+    };
+
+    // Draw category scores
     for (let i = 0; i < this.categoryScores.length; i++) {
       const item = this.categoryScores[i];
-      const label = `${item.category}: ${item.score}% (${item.kesimpulan})`;
-
+      
+      // Check if we need a new page for this item (need ~60px per category)
+      checkAndAddNewPageIfNeeded(60);
+      
+      // Kategori dan skor
+      const label = `${item.category}: ${item.score}%`;
+      
       page.drawText(label, {
         x: 50,
         y: yOffset,
@@ -973,14 +834,27 @@ async generateLocalPdf() {
         font: helveticaFont,
         color: rgb(0, 0, 0)
       });
-
+      
+      // Status (di kanan)
+      const statusText = `(${item.kesimpulan})`;
+      const statusWidth = helveticaFont.widthOfTextAtSize(statusText, 12);
+      
+      page.drawText(statusText, {
+        x: width - statusWidth - 50,
+        y: yOffset,
+        size: 12,
+        font: helveticaFont,
+        color: rgb(0, 0, 0)
+      });
+      
       yOffset -= 18;
 
+      // Choose color based on score
       let barColor = rgb(0.2, 0.6, 0.2); // Hijau
       if (item.score < 50) barColor = rgb(0.9, 0.2, 0.2); // Merah
       else if (item.score < 75) barColor = rgb(1, 0.8, 0); // Kuning
 
-      // Progress bar
+      // Progress bar background
       page.drawRectangle({
         x: 50,
         y: yOffset,
@@ -988,6 +862,8 @@ async generateLocalPdf() {
         height: 8,
         color: rgb(0.9, 0.9, 0.9)
       });
+      
+      // Progress bar fill
       page.drawRectangle({
         x: 50,
         y: yOffset,
@@ -999,7 +875,13 @@ async generateLocalPdf() {
       yOffset -= 25;
     }
 
-    yOffset -= 10;
+    // Check if we need a new page for recommendations
+    if (checkAndAddNewPageIfNeeded(this.recommendations.length * 30 + 50)) {
+      // If we added a new page, add the section title again
+      yOffset -= 10;
+    } else {
+      yOffset -= 20; // Add some space before recommendations
+    }
 
     // Rekomendasi
     page.drawText("Rekomendasi:", {
@@ -1012,9 +894,16 @@ async generateLocalPdf() {
 
     yOffset -= 30;
 
+    // Draw recommendations with text wrapping
     for (let i = 0; i < this.recommendations.length; i++) {
       const text = `${i + 1}. ${this.recommendations[i]}`;
       const lines = this.wrapText(text, helveticaFont, 12, width - 100);
+      
+      // Check if we need a new page
+      if (checkAndAddNewPageIfNeeded(lines.length * 20 + 10)) {
+        // Reset position if new page
+        yOffset -= 20;
+      }
 
       for (const line of lines) {
         page.drawText(line, {
@@ -1029,35 +918,48 @@ async generateLocalPdf() {
       yOffset -= 10;
     }
 
-    yOffset -= 20;
+    // Check if we need a new page for chart
+    checkAndAddNewPageIfNeeded(300);
 
-    
-
-    yOffset -= 30;
-
+    // Add chart if available
     const chartCanvas = document.getElementById("scoreChart");
     if (chartCanvas) {
-      const chartImage = await html2canvas(chartCanvas);
-      const chartImageData = chartImage.toDataURL("image/png");
-      const chartImageBytes = await fetch(chartImageData).then(res => res.arrayBuffer());
-      const image = await pdfDoc.embedPng(chartImageBytes);
+      try {
+        const chartImage = await html2canvas(chartCanvas);
+        const chartImageData = chartImage.toDataURL("image/png");
+        const chartImageBytes = await fetch(chartImageData).then(res => res.arrayBuffer());
+        const image = await pdfDoc.embedPng(chartImageBytes);
 
-      const scaleFactor = (width - 100) / image.width;
-      const scaledWidth = image.width * scaleFactor;
-      const scaledHeight = image.height * scaleFactor;
+        // Scale chart to fit page width
+        const scaleFactor = Math.min(1, (width - 100) / image.width);
+        const scaledWidth = image.width * scaleFactor;
+        const scaledHeight = image.height * scaleFactor;
 
-      page.drawImage(image, {
-        x: 50,
-        y: yOffset - scaledHeight,
-        width: scaledWidth,
-        height: scaledHeight
-      });
+        // Check if we need a new page for the chart
+        if (checkAndAddNewPageIfNeeded(scaledHeight + 40)) {
+          yOffset -= 20;
+        }
 
-      yOffset -= scaledHeight + 40;
+        page.drawImage(image, {
+          x: 50,
+          y: yOffset - scaledHeight,
+          width: scaledWidth,
+          height: scaledHeight
+        });
+
+        yOffset -= scaledHeight + 40;
+      } catch (err) {
+        console.error("Failed to add chart to PDF:", err);
+      }
     }
 
     // File Terlampir
     if (Object.keys(this.uploadedFiles).length > 0) {
+      // Check if we need a new page
+      if (checkAndAddNewPageIfNeeded(50)) {
+        yOffset -= 20;
+      }
+      
       page.drawText("File Terlampir:", {
         x: 50,
         y: yOffset,
@@ -1074,6 +976,12 @@ async generateLocalPdf() {
           for (const file of files) {
             if (file instanceof File) {
               try {
+                // Check if we need a new page
+                if (checkAndAddNewPageIfNeeded(25)) {
+                  yOffset -= 10;
+                }
+                
+                // Add file as attachment
                 const fileArrayBuffer = await file.arrayBuffer();
                 await pdfDoc.attach(fileArrayBuffer, file.name, {
                   mimeType: file.type,
@@ -1082,6 +990,7 @@ async generateLocalPdf() {
                   modificationDate: new Date()
                 });
 
+                // Add file name to the list
                 page.drawText(`${fileNumber}. ${file.name}`, {
                   x: 50,
                   y: yOffset,
@@ -1101,6 +1010,7 @@ async generateLocalPdf() {
       }
     }
 
+    // Generate and return PDF
     const pdfBytes = await pdfDoc.save();
     return new Blob([pdfBytes], { type: 'application/pdf' });
   } catch (error) {
