@@ -119,87 +119,50 @@
     </div>
 
     <!-- Bagian untuk menampilkan hasil audit -->
-  <div v-if="showResults">
-    <h2 class="text-xl font-semibold mt-4">Hasil Audit</h2>
-    <p class="mt-2"><strong>Total Skor:</strong> {{ totalScore }}%</p>
-    <p class="mt-1"><strong>Kesimpulan Audit:</strong> {{ kesimpulanTotal }}</p>
-
-    <h3 class="text-lg font-semibold mt-4">Detail per Kategori:</h3>
-    <ul class="list-disc ml-6">
-      <li v-for="cat in categoryScores" :key="cat.category">
-        {{ cat.category }} — {{ cat.kesimpulan }} ({{ cat.score }}%)
-      </li>
-    </ul>
-  </div>
-
-
-      <!-- Menampilkan skor per kategori -->
-      <div class="row mt-4">
-        <div class="col-md-6">
-          <div class="card category-scores-card">
-            <div class="card-header">
-              <h3 class="mb-0">Skor Kategori</h3>
-            </div>
-            <div class="card-body">
-              <div class="category-scores-grid">
-                <div v-for="(category, index) in categoryScores" 
-            :key="index"
-                     class="category-score-item">
-                  <div class="category-score-content">
-                    <div class="category-name">{{ category.category }}</div>
-                    <div class="score-bar-container">
-                      <div class="score-bar" :style="{ width: category.score + '%', backgroundColor: getScoreColor(category.score) }"></div>
-                    </div>
-                    <div class="score-value">{{ category.score }}%</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div v-if="showResults" class="audit-results-compact">
+      <div class="results-header">
+        <h2 class="results-title">Hasil Audit</h2>
+        <div class="total-score">{{ totalScore }}%</div>
       </div>
+      <p class="mb-2"><strong>Kesimpulan:</strong> {{ kesimpulanTotal }}</p>
 
-        <div class="col-md-6">
-          <div class="card recommendations-card">
-            <div class="card-header">
-              <h3 class="mb-0">Rekomendasi</h3>
+      <div class="category-scores-container">
+        <h3 class="category-header">Detail per Kategori:</h3>
+        <div class="category-list">
+          <div v-for="cat in categoryScores" :key="cat.category" class="category-item">
+            <div class="category-name">{{ cat.category }}</div>
+            <div class="score-bar-container">
+              <div class="score-bar" :style="{ width: cat.score + '%', backgroundColor: getScoreColor(cat.score) }"></div>
+              <div class="score-value">{{ cat.score }}%</div>
             </div>
-            <div class="card-body">
-        <ul class="recommendations-list">
-                <li v-for="(rec, index) in recommendations" 
-            :key="index"
-                    class="recommendation-item">
-                  <i class="ni ni-check-bold text-success"></i>
-            {{ rec }}
-          </li>
-        </ul>
-      </div>
+            <div class="score-label">({{ cat.kesimpulan }})</div>
           </div>
         </div>
       </div>
 
-      
+      <!-- Rekomendasi dalam format yang lebih compact -->
+      <div class="recommendations-compact" v-if="recommendations.length > 0">
+        <h3 class="recommendation-header">Rekomendasi:</h3>
+        <ul class="recommendations-list">
+          <li v-for="(rec, index) in recommendations" :key="index" class="recommendation-item">
+            <i class="ni ni-check-bold"></i>
+            <span>{{ rec }}</span>
+          </li>
+        </ul>
+      </div>
 
       <!-- Tombol Aksi -->
-      <div class="action-buttons mt-4">
+      <div class="action-buttons">
         <button @click="downloadPdf" class="btn btn-primary">
-          <i class="ni ni-cloud-download-95 me-2"></i>
-          Download PDF
+          <i class="ni ni-cloud-download-95"></i> Download PDF
         </button>
-        <button @click="sendPdfToAuditor" 
-                :disabled="isSending" 
-                class="btn btn-success ms-3">
-          <i class="ni ni-send me-2"></i>
-          {{ isSending ? "Mengirim..." : "Kirim ke Auditor" }}
+        <button @click="sendPdfToAuditor" :disabled="isSending" class="btn btn-success">
+          <i class="ni ni-send"></i> {{ isSending ? "Mengirim..." : "Kirim ke Auditor" }}
         </button>
       </div>
     </div>
+  </div>
 </template>
-
-
-
-
-
-
 
 <script>
 import axios from "axios";
@@ -1782,6 +1745,171 @@ h2 {
 
 .retry-btn:hover {
   background-color: #45a049;
+}
+
+/* Compact Audit Results Styles */
+.audit-results-compact {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-top: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #4CAF50;
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.results-title {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.total-score {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.category-header, .recommendation-header {
+  font-size: 1.2rem;
+  margin: 1rem 0 0.5rem 0;
+  color: #333;
+}
+
+.category-scores-container {
+  margin-bottom: 1.5rem;
+}
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.category-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 0.25rem 1rem;
+  align-items: center;
+}
+
+.category-name {
+  font-weight: 500;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.score-bar-container {
+  position: relative;
+  background: #e9ecef;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  grid-column: 1 / span 2;
+  grid-row: 2;
+}
+
+.score-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease-out;
+}
+
+.score-value {
+  position: absolute;
+  right: 0;
+  top: -16px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.score-label {
+  font-size: 0.85rem;
+  color: #666;
+  grid-column: 2;
+  grid-row: 1;
+  text-align: right;
+}
+
+.recommendations-compact {
+  margin: 1.5rem 0;
+}
+
+.recommendations-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.recommendation-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  background-color: #fff;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  border-left: 3px solid #4CAF50;
+}
+
+.recommendation-item i {
+  color: #4CAF50;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.action-buttons .btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .category-item {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+  
+  .category-name {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  
+  .score-bar-container {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  
+  .score-label {
+    grid-column: 1;
+    grid-row: 3;
+    text-align: left;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
 }
 </style>
 
