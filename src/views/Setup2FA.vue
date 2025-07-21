@@ -37,11 +37,28 @@ import { useStore } from 'vuex';
 const verificationCode = ref('');
 const qrCanvas = ref(null);
 const secret = ref('');
+const email = ref('');  // Add email ref
 const $q = useQuasar();
 const router = useRouter();
 const store = useStore();
 
 onMounted(async () => {
+  // Get email from localStorage
+  email.value = localStorage.getItem('email');
+  
+  // Debug log to check if email exists
+  console.log("Email from localStorage:", email.value);
+  
+  if (!email.value) {
+    $q.notify({
+      message: "Email tidak ditemukan, silahkan login kembali",
+      type: "negative",
+      position: "top-right",
+    });
+    router.push('/signin');
+    return;
+  }
+  
   try {
     const response = await axios.post("https://spbebackend-production.up.railway.app/api/auth/setup-2fa", {}, {
       headers: {
@@ -92,6 +109,7 @@ const verify2FA = async () => {
     const response = await axios.post("https://spbebackend-production.up.railway.app/api/auth/verify-2fa", {
       otp: verificationCode.value,
       google2fa_secret: secret.value, // Include the google2fa_secret in the request
+      email: email.value // Include email from localStorage
     }, {
       headers: {
         Authorization: `Bearer ${store.state.token}`, // Use the token from the store
@@ -108,12 +126,43 @@ const verify2FA = async () => {
     }
   } catch (error) {
     console.error("Error verifying 2FA:", error);
-    const errorMessage = error.response?.data?.message || "Failed to verify 2FA.";
-    $q.notify({
-      message: errorMessage,
-      type: "negative",
-      position: "top-right",
-    });
+    
+    // Detailed error logging
+    if (error.response) {
+      console.error("Response data:", error.response.data);
+      console.error("Response status:", error.response.status);
+      
+      // Display specific validation errors if available
+      if (error.response.data && error.response.data.errors) {
+        const errors = error.response.data.errors;
+        const errorMessages = [];
+        
+        Object.keys(errors).forEach(key => {
+          errorMessages.push(`${key}: ${errors[key].join(", ")}`);
+        });
+        
+        $q.notify({
+          message: errorMessages.join("\n"),
+          type: "negative",
+          position: "top-right",
+          multiLine: true,
+          timeout: 5000
+        });
+      } else {
+        const errorMessage = error.response?.data?.message || "Failed to verify 2FA.";
+        $q.notify({
+          message: errorMessage,
+          type: "negative",
+          position: "top-right",
+        });
+      }
+    } else {
+      $q.notify({
+        message: "Network error occurred. Please try again.",
+        type: "negative",
+        position: "top-right",
+      });
+    }
   }
 };
 
